@@ -32,6 +32,7 @@ jobs:
       - name: Npm Install
         run: |
           npm install hexo-cli -g
+          npm install hexo-deployer-git -g
           npm install
 
       - name: Set Key
