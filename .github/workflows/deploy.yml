@@ -1,4 +1,4 @@
-name: hexo deploy CI
+name: hexo-Blog deploy CI
 
 on:
   push:
@@ -9,7 +9,6 @@ env:
   GIT_USER: yangxudong
   GIT_EMAIL: yang.xudong@outlook.com
   THEME_REPO: StuartYang/blog
-  THEME_BRANCH: main
   DEPLOY_REPO: StuartYang/StuartYang.github.io
   DEPLOY_BRANCH: main
 
@@ -32,30 +31,33 @@ jobs:
           ref: ${{ env.DEPLOY_BRANCH }}
           path: .deploy_git
 
-      - name: Use Node.js ${{ matrix.node_version }}
+      - name: 当前Node.js版本： ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: Configuration environment
+      - name: 自动化部署配置
         env:
-          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
+          hexo_deploy_pri: ${{secrets.hexo_deploy_pri}}
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
           mkdir -p ~/.ssh/
-          echo "$HEXO_DEPLOY_PRI" > ~/.ssh/hexo_deploy
+          echo "$hexo_deploy_pri" > ~/.ssh/hexo_deploy
           chmod 600 ~/.ssh/hexo_deploy
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
 
-      - name: Install dependencies
+        - name: hexo所需依赖安装
         run: |
+          npm install hexo-cli -g
           npm install
 
-      - name: Deploy hexo
+       - name: Hexo部署
         run: |
-          npm hexo clean
-          npm hexo generate
-          npm gulp
-          npm hexo deploy
+          hexo clean
+          hexo generate
+          gulp
+          hexo deploy
+
+
