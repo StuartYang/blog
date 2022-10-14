@@ -103,7 +103,8 @@ theme: Chic
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   - type: git
-    repo: git@github.com:StuartYang/stuartyang.github.io
+    repo: git@github.com:StuartYang/StuartYang.github.io.git  # Github pages地址StuartYang
     branch: main
     name: yangxudong
     email: yang.xudong@outlook.com
+    
