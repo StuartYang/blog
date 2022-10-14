@@ -21,7 +21,6 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node_version: [16.x]
-        
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -54,7 +53,7 @@ jobs:
         run: |
           npm install
 
-       - name: Hexo Deploy
+      - name: Deploy hexo
         run: |
           hexo clean
           hexo generate
