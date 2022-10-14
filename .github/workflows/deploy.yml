@@ -53,6 +53,9 @@ jobs:
         run: |
           npm install
 
-      - name: Deploy hexo
+       - name: Hexo Deploy
         run: |
-          npm run deploy
+          hexo clean
+          hexo generate
+          gulp
+          hexo deploy
