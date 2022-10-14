@@ -36,10 +36,10 @@ jobs:
 
       - name: Set Key
         env:
-          hexo_deploy_pri: ${{ secrets.hexo_deploy_pri }}
+          HEXO_DEPLOY_SECRET: ${{ secrets.HEXO_DEPLOY_SECRET }}
         run: |
           mkdir -p ~/.ssh
-          echo "$hexo_deploy_pri" > ~/.ssh/hexo_deploy
+          echo "$HEXO_DEPLOY_SECRET" > ~/.ssh/hexo_deploy
           chmod 600 ~/.ssh/hexo_deploy
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.email "yang.xudong@outlook.com"
