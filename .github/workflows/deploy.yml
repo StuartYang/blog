@@ -31,12 +31,12 @@ jobs:
           ref: ${{ env.DEPLOY_BRANCH }}
           path: .deploy_git
 
-      - name: 当前Node.js版本： ${{ matrix.node_version }}
+      - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: 自动化部署配置
+      - name: Configuration environment
         env:
           hexo_deploy_pri: ${{secrets.hexo_deploy_pri}}
         run: |
@@ -48,14 +48,13 @@ jobs:
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
 
-        - name: hexo所需依赖安装
+        - name: Install hexo dependencies
         run: |
           npm install hexo-cli -g
           npm install
 
-       - name: Hexo部署
+       - name: Deploy hexo
         run: |
-          hexo clean
           hexo generate
           gulp
           hexo deploy
